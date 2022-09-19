@@ -5,9 +5,9 @@ import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.mo
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
 ];
-
+ // carga las rutas hijas
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{enableTracing: false, useHash: true},DashboardRoutingModule)] // carga las rutas hijas
-  ,exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes,{enableTracing: false, useHash: true}),DashboardRoutingModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

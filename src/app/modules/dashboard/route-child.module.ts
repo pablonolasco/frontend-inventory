@@ -9,7 +9,7 @@ const childRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(childRoutes)],
-  export: [RouterModule]
+  exports: [RouterModule]
 })
 
 
