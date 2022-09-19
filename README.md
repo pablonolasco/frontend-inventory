@@ -1,4 +1,4 @@
-# Angular Shop
+# Angular Inventory
 
 Este es un proyecto de ejemplo para mostrar una implementación de una aplicación de comercio / comercio electrónico elegante, sensible, compatible con cross browser (IE11) hecha en Angular.
 
