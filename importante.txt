@@ -1,0 +1,4 @@
+- crear componente
+ng g c modules/dashboard/pages/dashboard --flat --skipTests
+-
+- crear modulo

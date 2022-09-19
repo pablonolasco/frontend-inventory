@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+    app:
+      build: .
+      restart: always
+      container_name: angular # nombre para referirse al servicio
+      ports:
+        - 4200:4200
+      volumes:
+        - /code/node_modules
+        - ./:/code
+      command: 
+           ng serve --host 0.0.0.0
+          #sh -c "npm start"
+         #bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+        
+# docker-compose run app ng new front-inventory --directory . --skipInstall
+# docker-compose run app ng new angular-docker --directory . --skipInstall
+
+
