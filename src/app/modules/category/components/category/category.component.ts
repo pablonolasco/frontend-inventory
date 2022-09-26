@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { CategoriaModalComponent } from '../modal/categoria-modal/categoria-modal.component';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { CategoriaConfirmarModalComponent } from '../modal/categoria-confirmar-modal/categoria-confirmar-modal.component';
 
 @Component({
   selector: 'app-category',
@@ -85,6 +86,23 @@ export class CategoryComponent implements OnInit {
       }
     });
 
+  }
+
+  eliminarCategoria(id:any){
+    const dialogRef = this.dialog.open(CategoriaConfirmarModalComponent, {
+      width: '450px',
+     data: {id:id},
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+
+      if (result == 1) {
+        this.abrirSnackBar("Categoria Desactivada","Exito");
+        this.getCategorias();
+      } else if(result == 2) {
+        this.abrirSnackBar("Se produjo un error al desactivar categoria","Error");
+      }
+    });
   }
 
 

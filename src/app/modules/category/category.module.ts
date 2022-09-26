@@ -5,13 +5,15 @@ import { MaterialModule } from '../shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaModalComponent } from './components/modal/categoria-modal/categoria-modal.component';
+import { CategoriaConfirmarModalComponent } from './components/modal/categoria-confirmar-modal/categoria-confirmar-modal.component';
 
 
 
 @NgModule({
   declarations: [
     CategoryComponent,
-    CategoriaModalComponent
+    CategoriaModalComponent,
+    CategoriaConfirmarModalComponent
   ],
   imports: [
     CommonModule,

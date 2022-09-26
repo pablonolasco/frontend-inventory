@@ -29,4 +29,10 @@ export class CategoryService {
     const servicio = `${base_url}/categoria/${categoria.id}`;
     return this.http.put(servicio,categoria);
   }
+
+  deleteCategoria(id:any){
+    const service= `${base_url}/categoria/${id}`;
+    return this.http.delete(service);
+
+  }
 }

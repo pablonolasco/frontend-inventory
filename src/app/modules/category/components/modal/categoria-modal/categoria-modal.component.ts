@@ -74,12 +74,10 @@ export class CategoriaModalComponent implements OnInit {
         })
 
     }
-
-
-
-
-
-
-
   }
+
+  /*desactivarCategoria(){
+
+
+  }*/
 }
