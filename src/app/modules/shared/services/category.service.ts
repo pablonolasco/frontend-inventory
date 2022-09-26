@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CategoryElement } from '../../../../interface/CategoryElement';
 
 const base_url=environment.base_url;
 
@@ -22,5 +23,10 @@ export class CategoryService {
     debugger
     return this.http.post(servicio,categoria);
 
+  }
+
+  putCategoria(categoria:CategoryElement){
+    const servicio = `${base_url}/categoria/${categoria.id}`;
+    return this.http.put(servicio,categoria);
   }
 }

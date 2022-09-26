@@ -69,6 +69,24 @@ export class CategoryComponent implements OnInit {
     this.dataSourceCategorias= new MatTableDataSource<CategoryElement>(categorias);
   }
 
+  editarCategoria(categoria:CategoryElement){
+    const dialogRef = this.dialog.open(CategoriaModalComponent, {
+      width: '450px',
+     data: {id:categoria.id,nombre: categoria.nombre, descripcion: categoria.descripcion},
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+
+      if (result == 1) {
+        this.abrirSnackBar("Categoria Actualizada","Exito");
+        this.getCategorias();
+      } else if(result == 2) {
+        this.abrirSnackBar("Se produjo un error al actualizar categoria","Error");
+      }
+    });
+
+  }
+
 
 
 
