@@ -15,4 +15,12 @@ export class CategoryService {
     const servicio=`${base_url}/categorias`;
     return this.http.get(servicio);
   }
+
+  postCategoria(categoria: any){
+    const servicio= `${base_url}/categoria`;
+    console.log(servicio)
+    debugger
+    return this.http.post(servicio,categoria);
+
+  }
 }
