@@ -90,7 +90,7 @@ export class CategoryComponent implements OnInit {
 
   eliminarCategoria(id:any){
     const dialogRef = this.dialog.open(CategoriaConfirmarModalComponent, {
-      width: '450px',
+     // width: '450px',
      data: {id:id},
     });
 
