@@ -70,6 +70,16 @@ export class CategoryComponent implements OnInit {
     this.dataSourceCategorias= new MatTableDataSource<CategoryElement>(categorias);
   }
 
+  buscarCategoria(categoria:any){
+    if (categoria.length == 0) {
+      return this.getCategorias();
+    }
+    this.categoriaService.buscarCategoria(categoria).subscribe((resp:any)=>{
+      this.categoriaRespuesta(resp);
+    });
+
+  }
+
   editarCategoria(categoria:CategoryElement){
     const dialogRef = this.dialog.open(CategoriaModalComponent, {
       width: '450px',
@@ -104,6 +114,8 @@ export class CategoryComponent implements OnInit {
       }
     });
   }
+
+
 
 
 

@@ -35,4 +35,9 @@ export class CategoryService {
     return this.http.delete(service);
 
   }
+
+  buscarCategoria(id:any){
+    const servicio=`${base_url}/categoria/${id}`;
+    return this.http.get(servicio);
+  }
 }
