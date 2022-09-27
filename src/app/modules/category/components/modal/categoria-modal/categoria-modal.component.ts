@@ -46,7 +46,7 @@ export class CategoriaModalComponent implements OnInit {
 
   guardarCategoria(){
 
-    debugger
+    
     if (!(this.dataCategoriaPadre == null)) {
       let data:CategoryElement={
         id:this.dataCategoriaPadre.id,

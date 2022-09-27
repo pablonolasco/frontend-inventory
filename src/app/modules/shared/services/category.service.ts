@@ -20,7 +20,7 @@ export class CategoryService {
   postCategoria(categoria: any){
     const servicio= `${base_url}/categoria`;
     console.log(servicio)
-    debugger
+   // debugger
     return this.http.post(servicio,categoria);
 
   }
