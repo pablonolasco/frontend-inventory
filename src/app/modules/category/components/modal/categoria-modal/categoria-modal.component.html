@@ -1,0 +1,22 @@
+<h2>{{encabezado}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="categoryFormGroup">
+    <div class="category-container">
+      <mat-form-field>
+        <input matInput formControlName="nombre" placeholder="Nombre" required>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput formControlName="descripcion" placeholder="Descripcion" required></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="guardarCategoria()" [disabled]="categoryFormGroup.invalid">
+    <mat-icon class="mat-18">save</mat-icon>Guardar
+  </button>
+  <button mat-button color="primary" (click)="cerrarModal()">
+    <mat-icon class="mat-18">cancel</mat-icon>Cerrar
+  </button>
+</mat-dialog-actions>
