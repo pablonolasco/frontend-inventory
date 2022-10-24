@@ -10,13 +10,14 @@ import { ProductoService } from 'src/app/modules/shared/services/producto.servic
 })
 export class ProductoComponent implements OnInit {
 
-  displayComuns:string[]=[''];
+  displayComuns:string[]=['id','nombre','precio'];
   dataSourceProductos= new MatTableDataSource<ProductoComponent>();
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
   constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
+    this.getProductos();
   }
 
   //#region modal
@@ -27,7 +28,15 @@ export class ProductoComponent implements OnInit {
 
   //#region metodos
 
+  getProductos(){
+    let productos=this.productoService.getProductos().subscribe((data:any)=>{
+      console.log("productos",data)
+    },(error=>{
+      console.log("productos",error);
 
+    }));
+    console.log(productos);
+  }
 
   buscarProducto(producto:any){
 
