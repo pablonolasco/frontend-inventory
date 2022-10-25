@@ -16,4 +16,9 @@ export class ProductoService {
     const servicio= `${base_url}/productos`
     return this.http.get(servicio);
   }
+
+  createProducto(producto:any){
+    const servicio=`${base_url}/producto`
+    return this.http.post(servicio,producto);
+  }
 }

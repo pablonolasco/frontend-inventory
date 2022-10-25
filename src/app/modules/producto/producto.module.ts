@@ -4,13 +4,13 @@ import { MaterialModule } from '../shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductoComponent } from './components/producto/producto.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { ProductoModalComponent } from './components/modal/producto.modal.component';
 
 
 @NgModule({
   declarations: [
     ProductoComponent,
-    ModalComponent
+    ProductoModalComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,11 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductoService } from 'src/app/modules/shared/services/producto.service';
 import { ProductoElements } from 'src/interface/ProductoElement';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductoModalComponent } from '../modal/producto.modal.component';
 
 @Component({
   selector: 'app-producto',
@@ -15,7 +18,7 @@ export class ProductoComponent implements OnInit {
   dataSourceProductos= new MatTableDataSource<ProductoElements>();
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProductos();
@@ -23,6 +26,10 @@ export class ProductoComponent implements OnInit {
 
   //#region modal
   abrirModalProducto(){
+    const dialogRef = this.dialog.open(ProductoModalComponent, {
+      width: '450px',
+    //  data: {name: this.name, animal: this.animal},
+    });
 
   }
   //#endregion
