@@ -11,7 +11,7 @@ import { ProductoElements } from 'src/interface/ProductoElement';
 })
 export class ProductoComponent implements OnInit {
 
-  displayColumns:string[]=['id','nombre','precio'];
+  displayColumns:string[]=['id','nombre','precio','cantidad','categoriaEntity','imagen','acciones'];
   dataSourceProductos= new MatTableDataSource<ProductoElements>();
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
@@ -42,16 +42,16 @@ export class ProductoComponent implements OnInit {
 
   productoRespuesta(data:any){
     const productos:ProductoElements[]=[];
-    debugger
+    //debugger
     if (data.metadata[0].codigo=="200") {
         let listasProductos=data.productoResponse.productos;
 
         listasProductos.forEach((element:ProductoElements) => {
           element.categoriaEntity=element.categoriaEntity.nombre;
-          element.picture='data:image/jpeg;base64'+element.picture;
+          element.imagen='data:image/jpeg;base64,'+element.imagen;
           productos.push(element);
         });
-        console.log('productos '+productos)
+        console.log('productos '+JSON.stringify(productos))
 
         this.dataSourceProductos=new MatTableDataSource<ProductoElements>(productos);
         this.dataSourceProductos.paginator=this.paginador;

@@ -4,5 +4,5 @@ export interface ProductoElements{
   precio: number;
   cantidad: number;
   categoriaEntity: any;
-  picture: any;
+  imagen: any;
 }
