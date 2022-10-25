@@ -3,6 +3,6 @@ export interface ProductoElements{
   nombre: string;
   precio: number;
   cantidad: number;
-  categoria: any;
+  categoriaEntity: any;
   picture: any;
 }

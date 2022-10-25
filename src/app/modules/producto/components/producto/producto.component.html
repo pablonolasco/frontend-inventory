@@ -1,5 +1,5 @@
 <mat-card>
-  <h2 class="alinear">Listado de Categorias</h2>
+  <h2 class="alinear">Listado de Productos</h2>
   <mat-card-header>
     <div>
       <mat-form-field hintLabel="Ingrese busqueda" appearance="fill">
@@ -12,7 +12,7 @@
     <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
       <ul fxLayout="row" fxLayoutGap="20px">
         <li>
-          <button mat-raised-button color="primary" (click)="abrirModalProducto()">Agregar categoria</button>
+          <button mat-raised-button color="primary" (click)="abrirModalProducto()">Agregar producto</button>
         </li>
       </ul>
     </div>
@@ -49,9 +49,9 @@
           </button>
         </td>
       </ng-container>
-      <!--setear
+      <!--setearcolumnas-->
       <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-      <tr mat-header-row *matRowDef="let row; columns: displayColumns;"></tr>columnas-->
+      <tr mat-header-row *matRowDef="let row; columns: displayColumns;"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>

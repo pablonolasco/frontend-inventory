@@ -2,6 +2,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductoService } from 'src/app/modules/shared/services/producto.service';
+import { ProductoElements } from 'src/interface/ProductoElement';
 
 @Component({
   selector: 'app-producto',
@@ -10,7 +11,7 @@ import { ProductoService } from 'src/app/modules/shared/services/producto.servic
 })
 export class ProductoComponent implements OnInit {
 
-  displayComuns:string[]=['id','nombre','precio'];
+  displayColumns:string[]=['id','nombre','precio'];
   dataSourceProductos= new MatTableDataSource<ProductoComponent>();
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
@@ -30,14 +31,26 @@ export class ProductoComponent implements OnInit {
 
   getProductos(){
     let productos=this.productoService.getProductos().subscribe((data:any)=>{
-      console.log("productos",data)
+      this.productoRespuesta(data);
     },(error=>{
       console.log("productos",error);
 
     }));
-    console.log(productos);
+
   }
 
+  productoRespuesta(data:any){
+    const productos:ProductoElements[]=[];
+    //debugger
+    if (data.metadata[0].codigo=="200") {
+        let listasProductos=data.productoResponse.productos;
+        listasProductos.forEach((element:ProductoElements) => {
+          element.categoriaEntity=element.categoriaEntity.nombre;
+          element.picture='';
+            console.log(element)
+        });
+    }
+  }
   buscarProducto(producto:any){
 
   }
