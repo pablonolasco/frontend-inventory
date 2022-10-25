@@ -12,7 +12,7 @@ import { ProductoElements } from 'src/interface/ProductoElement';
 export class ProductoComponent implements OnInit {
 
   displayColumns:string[]=['id','nombre','precio'];
-  dataSourceProductos= new MatTableDataSource<ProductoComponent>();
+  dataSourceProductos= new MatTableDataSource<ProductoElements>();
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
   constructor(private productoService: ProductoService) { }
@@ -31,6 +31,7 @@ export class ProductoComponent implements OnInit {
 
   getProductos(){
     let productos=this.productoService.getProductos().subscribe((data:any)=>{
+      console.log('first')
       this.productoRespuesta(data);
     },(error=>{
       console.log("productos",error);
@@ -41,14 +42,19 @@ export class ProductoComponent implements OnInit {
 
   productoRespuesta(data:any){
     const productos:ProductoElements[]=[];
-    //debugger
+    debugger
     if (data.metadata[0].codigo=="200") {
         let listasProductos=data.productoResponse.productos;
+
         listasProductos.forEach((element:ProductoElements) => {
           element.categoriaEntity=element.categoriaEntity.nombre;
-          element.picture='';
-            console.log(element)
+          element.picture='data:image/jpeg;base64'+element.picture;
+          productos.push(element);
         });
+        console.log('productos '+productos)
+
+        this.dataSourceProductos=new MatTableDataSource<ProductoElements>(productos);
+        this.dataSourceProductos.paginator=this.paginador;
     }
   }
   buscarProducto(producto:any){
