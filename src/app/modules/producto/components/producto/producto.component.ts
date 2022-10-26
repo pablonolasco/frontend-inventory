@@ -1,4 +1,4 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -30,7 +30,21 @@ export class ProductoComponent implements OnInit {
       width: '450px',
     //  data: {name: this.name, animal: this.animal},
     });
+    dialogRef.afterClosed().subscribe((result:any) => {
 
+      if (result == 1) {
+        this.abrirSnackBar("Producto Agregado","Exito");
+        this.getProductos();
+      } else if(result == 2) {
+        this.abrirSnackBar("Se produjo un error al guardar el producto","Error");
+      }
+    });
+  }
+
+  abrirSnackBar(mensaje:string, accion:string): MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(mensaje,accion,{
+      duration:2000
+    });
   }
   //#endregion
 
@@ -38,11 +52,9 @@ export class ProductoComponent implements OnInit {
 
   getProductos(){
     let productos=this.productoService.getProductos().subscribe((data:any)=>{
-      console.log('first')
       this.productoRespuesta(data);
     },(error=>{
-      console.log("productos",error);
-
+      this.abrirSnackBar("Se produjo un error al consultar los productos","Error");
     }));
 
   }
@@ -58,7 +70,6 @@ export class ProductoComponent implements OnInit {
           element.imagen='data:image/jpeg;base64,'+element.imagen;
           productos.push(element);
         });
-        console.log('productos '+JSON.stringify(productos))
 
         this.dataSourceProductos=new MatTableDataSource<ProductoElements>(productos);
         this.dataSourceProductos.paginator=this.paginador;
