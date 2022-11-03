@@ -17,6 +17,8 @@ export class ProductoModalComponent implements OnInit {
   public encabezado:string='Agregar Producto';
   public productoFormGroup:FormGroup;
   public ListaCategorias:any[]=[];
+  selectFile:any;
+  nombreImagen:string="";
   constructor(private fb:FormBuilder, private productoService:ProductoService, private categoriaService:CategoryService, private snackBar: MatSnackBar,private dialogRef:MatDialogRef<ProductoModalComponent>,@Inject(MAT_DIALOG_DATA) public dataProducto: ProductoElements) {
     this.productoFormGroup=this.fb.group({
           nombre:['',Validators.required ],
@@ -37,10 +39,28 @@ export class ProductoModalComponent implements OnInit {
 
   //#region metodos
   onFileChanged(event:any){
-
+    this.selectFile=event.target.files[0];
+    console.log(this.selectFile)
+    this.nombreImagen=event.target.files[0].name;
   }
 
-  guardarCategoria(){
+  guardar(){
+      let data={
+        nombre:this.productoFormGroup.get('nombre')?.value,
+        precio:this.productoFormGroup.get('precio')?.value,
+        cantidad:this.productoFormGroup.get('cantidad')?.value,
+        categoriaEntity:this.productoFormGroup.get('categoriaEntity')?.value,
+        imagen:this.selectFile
+      }
+
+      const formData= new FormData();
+      formData.append('imagen',data.imagen, data.imagen.name);
+      formData.append('nombre',data.nombre);
+      formData.append('precio',data.precio);
+      formData.append('cantidad',data.cantidad);
+      formData.append('idCategoria',data.categoriaEntity);
+
+      this.guardarProducto(formData);
 
   }
 
@@ -50,7 +70,7 @@ export class ProductoModalComponent implements OnInit {
 
   abrirSnackBar(mensaje:string, accion:string): MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(mensaje,accion,{
-      duration:2000
+      duration:4000
     });
   }
 
@@ -73,6 +93,19 @@ export class ProductoModalComponent implements OnInit {
       }));
 
       return listarCategorias;
+    }
+
+    guardarProducto(data:any){
+      this.productoService.createProducto(data).subscribe((data:any)=>{
+        this.dialogRef.close(1);
+      },(error=>{
+        this.dialogRef.close(2);
+
+      }));
+    }
+
+    actualizarProducto(datat:any){
+
     }
   //#endregion
 }

@@ -1,3 +1,4 @@
+import { ModalConfirmacionComponent } from './../modal-confirmacion/modal-confirmacion.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -41,6 +42,23 @@ export class ProductoComponent implements OnInit {
     });
   }
 
+  abrilModalEliminar(id:number){
+    const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
+      width: '450px',
+      data: {id: id},
+    });
+    dialogRef.afterClosed().subscribe((result:any) => {
+
+      if (result == 1) {
+        this.abrirSnackBar("Producto Eliminado","Exito");
+        this.getProductos();
+      } else if(result == 2) {
+        this.abrirSnackBar("Se produjo un error al eliminar el producto","Error");
+      }
+    });
+
+  }
+
   abrirSnackBar(mensaje:string, accion:string): MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(mensaje,accion,{
       duration:2000
@@ -82,9 +100,6 @@ export class ProductoComponent implements OnInit {
 
   }
 
-  eliminarProducto(id:number){
-
-  }
   //#endregion
 
 }

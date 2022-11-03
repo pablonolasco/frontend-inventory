@@ -21,4 +21,14 @@ export class ProductoService {
     const servicio=`${base_url}/producto`
     return this.http.post(servicio,producto);
   }
+
+  actualizar(producto:any, id:number){
+    const servicio=`${base_url}/producto/${id}`
+    return this.http.put(servicio,producto);
+  }
+
+  eliminarProducto(id:number){
+    const servicio=`${base_url}/producto/${id}`;
+    return this.http.delete(servicio)
+  }
 }
