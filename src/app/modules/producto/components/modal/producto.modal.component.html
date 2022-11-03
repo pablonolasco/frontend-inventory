@@ -21,7 +21,13 @@
         <mat-label>Foto:</mat-label>
         <label for="imagen" class="subir">Subir archivo</label>
 
-        <input id="imagen" class="input-file" type="file" accept="image/png, image/jpeg" (change)="onFileChanged($event)" formControlName="imagen"  required>
+        <input id="imagen" class="input-file" type="file" accept="image/png, image/jpeg" (change)="onFileChanged($event)" formControlName="imagen">
+        <br>
+        <br>
+        <img *ngIf="editar" [src]="dataProducto.imagen" width="50px" height="50px"/>
+        <img *ngIf="imagePath !=''" [src]="imgURL" width="50px" height="50px"/>
+        <br>
+        <br>
         <span>{{nombreImagen}}</span>
       </div>
     </div>

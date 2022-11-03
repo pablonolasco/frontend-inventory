@@ -19,6 +19,9 @@ export class ProductoModalComponent implements OnInit {
   public ListaCategorias:any[]=[];
   selectFile:any;
   nombreImagen:string="";
+  public imagePath:any='';
+  imgURL: any='';
+  public editar:boolean=false;
   constructor(private fb:FormBuilder, private productoService:ProductoService, private categoriaService:CategoryService, private snackBar: MatSnackBar,private dialogRef:MatDialogRef<ProductoModalComponent>,@Inject(MAT_DIALOG_DATA) public dataProducto: ProductoElements) {
     this.productoFormGroup=this.fb.group({
           nombre:['',Validators.required ],
@@ -28,11 +31,31 @@ export class ProductoModalComponent implements OnInit {
           imagen:['',Validators.required]
         }
       );
+
+      if ((dataProducto != null)) {
+        this.encabezado="Editar Producto";
+        this.editar=true;
+        this.productoFormGroup=this.fb.group({
+          nombre:[dataProducto.nombre,Validators.required ],
+          precio:[dataProducto.precio,Validators.required],
+          cantidad:[dataProducto.cantidad,Validators.required],
+          categoriaEntity:[dataProducto.categoriaEntity.id,Validators.required],
+          imagen:['']
+
+        }
+
+      )
+
+
+      }
+      console.log(this.imgURL);
+      console.log(this.imagePath);
+
   }
 
   ngOnInit(): void {
     this.ListaCategorias=this.getCategorias();
-    console.log(this.ListaCategorias)
+
   }
 
 
@@ -42,30 +65,55 @@ export class ProductoModalComponent implements OnInit {
     this.selectFile=event.target.files[0];
     console.log(this.selectFile)
     this.nombreImagen=event.target.files[0].name;
+    let mimeType = event.target.files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.abrirSnackBar("Solamente soporta imagenes","Error")
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = event.target.files;
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      if (this.dataProducto != undefined) {
+          this.editar=false;
+      }
+
+    }
+
+
   }
 
   guardar(){
+
       let data={
         nombre:this.productoFormGroup.get('nombre')?.value,
         precio:this.productoFormGroup.get('precio')?.value,
         cantidad:this.productoFormGroup.get('cantidad')?.value,
         categoriaEntity:this.productoFormGroup.get('categoriaEntity')?.value,
-        imagen:this.selectFile
+        imagen:(this.selectFile== undefined)?'':this.selectFile
       }
-
       const formData= new FormData();
-      formData.append('imagen',data.imagen, data.imagen.name);
+      if (data.imagen!='') {
+        formData.append('imagen',data.imagen, data.imagen.name);
+      }
       formData.append('nombre',data.nombre);
       formData.append('precio',data.precio);
       formData.append('cantidad',data.cantidad);
       formData.append('idCategoria',data.categoriaEntity);
 
-      this.guardarProducto(formData);
+      if ((this.dataProducto != null)) {
+        this.actualizarProducto(formData,this.dataProducto.id);
+      } else {
+        this.guardarProducto(formData);
+      }
 
   }
 
   cerrarModal(){
     this.dialogRef.close(3)
+
   }
 
   abrirSnackBar(mensaje:string, accion:string): MatSnackBarRef<SimpleSnackBar>{
@@ -104,8 +152,12 @@ export class ProductoModalComponent implements OnInit {
       }));
     }
 
-    actualizarProducto(datat:any){
-
+    actualizarProducto(producto:any, id:number){
+      this.productoService.actualizar(producto,id).subscribe((data:any)=>{
+        this.dialogRef.close(1);
+      },(error=>{
+        this.dialogRef.close(2);
+      }));
     }
   //#endregion
 }

@@ -42,6 +42,32 @@ export class ProductoComponent implements OnInit {
     });
   }
 
+  abrilModalEditarProducto(producto:any){
+    const dialogRef = this.dialog.open(ProductoModalComponent, {
+      width: '450px',
+      data:
+        {
+          "id": producto.id,
+          "nombre": producto.nombre,
+          "precio": producto.precio,
+          "cantidad": producto.cantidad,
+          "categoriaEntity": producto.categoriaEntity,
+          "imagen":producto.imagen
+      }
+      ,
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+
+      if (result == 1) {
+        this.abrirSnackBar("Producto Editado","Exito");
+        this.getProductos();
+      } else if(result == 2) {
+        this.abrirSnackBar("Se produjo un error al editar el producto","Error");
+      }
+    });
+  }
+
   abrilModalEliminar(id:number){
     const dialogRef = this.dialog.open(ModalConfirmacionComponent, {
       width: '450px',
@@ -84,7 +110,7 @@ export class ProductoComponent implements OnInit {
         let listasProductos=data.productoResponse.productos;
 
         listasProductos.forEach((element:ProductoElements) => {
-          element.categoriaEntity=element.categoriaEntity.nombre;
+          //element.categoriaEntity=element.categoriaEntity.nombre;
           element.imagen='data:image/jpeg;base64,'+element.imagen;
           productos.push(element);
         });
