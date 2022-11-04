@@ -1,3 +1,4 @@
+import { UtilService } from './../../../shared/services/util.service';
 import { ModalConfirmacionComponent } from './../modal-confirmacion/modal-confirmacion.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,9 +18,12 @@ export class ProductoComponent implements OnInit {
 
   displayColumns:string[]=['id','nombre','precio','cantidad','categoriaEntity','imagen','acciones'];
   dataSourceProductos= new MatTableDataSource<ProductoElements>();
+  isAdmin:any;
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
-  constructor(private productoService: ProductoService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private productoService: ProductoService, public dialog: MatDialog, private snackBar: MatSnackBar, private utilService:UtilService) {
+    this.isAdmin=utilService.isAdmin();
+   }
 
   ngOnInit(): void {
     this.getProductos();

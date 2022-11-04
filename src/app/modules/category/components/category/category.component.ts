@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { CategoriaConfirmarModalComponent } from '../modal/categoria-confirmar-modal/categoria-confirmar-modal.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { UtilService } from 'src/app/modules/shared/services/util.service';
 
 @Component({
   selector: 'app-category',
@@ -18,10 +19,14 @@ export class CategoryComponent implements OnInit {
 
   displayColumns:string[]=['id','nombre','descripcion','acciones'];
   dataSourceCategorias= new MatTableDataSource<CategoryElement>();
+  isAdmin:any;
   @ViewChild(MatPaginator)
   paginador!:MatPaginator
 
-  constructor(private categoriaService: CategoryService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private categoriaService: CategoryService, public dialog: MatDialog, private snackBar: MatSnackBar,private utilService:UtilService) {
+    this.isAdmin=utilService.isAdmin();
+
+   }
 
   ngOnInit() {
     this.getCategorias();
