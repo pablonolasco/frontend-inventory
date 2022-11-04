@@ -17,6 +17,10 @@ export class ProductoService {
     return this.http.get(servicio);
   }
 
+  buscarProducto(producto:string){
+    const servicio=`${base_url}/producto?nombre=${producto}`;
+    return this.http.get(servicio);
+  }
   createProducto(producto:any){
     const servicio=`${base_url}/producto`
     return this.http.post(servicio,producto);

@@ -119,11 +119,24 @@ export class ProductoComponent implements OnInit {
         this.dataSourceProductos.paginator=this.paginador;
     }
   }
+
   buscarProducto(producto:any){
+      if (producto.length==0) {
+        this.getProductos();
+      }else{
+        this.productoService.buscarProducto(producto).subscribe((data:any)=>{
+          if (data.metadata[0].codigo=="200") {
+            this.productoRespuesta(data);
+          }else if(data.metadata[0].codigo=="404"){
+            console.log('first')
+            this.abrirSnackBar(data.metadata[0].mensaje,"Exito");
+          }
 
-  }
-  editarProducto(producto:any){
 
+        },(error=>{
+          this.abrirSnackBar("Ocurrio un error al realizar la busqueda","Error");
+        }));
+      }
   }
 
   //#endregion
