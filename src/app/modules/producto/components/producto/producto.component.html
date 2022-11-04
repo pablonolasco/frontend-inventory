@@ -61,7 +61,7 @@
           <button mat-icon-button color="accent" (click)="abrilModalEditarProducto(element)">
             <mat-icon aria-label="Editar">edit</mat-icon>
           </button>
-          <button mat-icon-button color="accent">
+          <button mat-icon-button color="accent" *ngIf="isAdmin">
             <mat-icon aria-label="Eliminar" (click)="abrilModalEliminar(element.id)">delete</mat-icon>
           </button>
         </td>
