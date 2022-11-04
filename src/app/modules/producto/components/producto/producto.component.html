@@ -1,0 +1,80 @@
+<mat-card>
+  <h2 class="alinear">Listado de Productos</h2>
+  <mat-card-header>
+    <div>
+      <mat-form-field hintLabel="Ingrese busqueda" appearance="fill">
+        <mat-label>Buscar Producto</mat-label>
+        <input matInput #input (keyup)="buscarProducto(input.value)">
+      </mat-form-field>
+    </div>
+  </mat-card-header>
+  <mat-card-header>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <ul fxLayout="row" fxLayoutGap="20px">
+        <li>
+          <button mat-raised-button color="primary" (click)="abrirModalProducto()">Agregar producto</button>
+        </li>
+      </ul>
+    </div>
+  </mat-card-header>
+
+  <div mat-card-image></div>
+
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSourceProductos" class="mat-cell">
+
+      <ng-container  matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+
+      <ng-container  matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+      </ng-container>
+
+      <ng-container  matColumnDef="precio">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let element">{{element.precio}}</td>
+      </ng-container>
+
+
+      <ng-container  matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+        <td mat-cell *matCellDef="let element">{{element.cantidad}}</td>
+      </ng-container>
+
+      <ng-container  matColumnDef="categoriaEntity">
+        <th mat-header-cell *matHeaderCellDef>Categoria</th>
+        <td mat-cell *matCellDef="let element">{{element.categoriaEntity.nombre}}</td>
+      </ng-container>
+
+      <ng-container  matColumnDef="imagen">
+        <th mat-header-cell *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let element"><img [src]="element.imagen" width="50px" height="50px"/></td>
+      </ng-container>
+
+
+      <ng-container  matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element; let i=index;">
+          <button mat-icon-button color="accent" (click)="abrilModalEditarProducto(element)">
+            <mat-icon aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="accent">
+            <mat-icon aria-label="Eliminar" (click)="abrilModalEliminar(element.id)">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <!--setearcolumnas-->
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-header-row *matRowDef="let row; columns: displayColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+
+    </mat-paginator>
+
+  </mat-card-content>
+
+</mat-card>

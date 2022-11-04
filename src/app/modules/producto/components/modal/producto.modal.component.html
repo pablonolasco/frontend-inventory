@@ -1,0 +1,44 @@
+<h2>{{encabezado}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="productoFormGroup">
+    <div class="category-container">
+      <mat-form-field>
+        <input matInput formControlName="nombre" placeholder="Nombre" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" formControlName="precio" placeholder="0.0" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" formControlName="cantidad" placeholder="0" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoriaEntity">
+          <mat-option *ngFor="let categoria of ListaCategorias" [value]="categoria.id"> {{categoria.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <mat-label>Foto:</mat-label>
+        <label for="imagen" class="subir">Subir archivo</label>
+
+        <input id="imagen" class="input-file" type="file" accept="image/png, image/jpeg" (change)="onFileChanged($event)" formControlName="imagen">
+        <br>
+        <br>
+        <img *ngIf="editar" [src]="dataProducto.imagen" width="50px" height="50px"/>
+        <img *ngIf="imagePath !=''" [src]="imgURL" width="50px" height="50px"/>
+        <br>
+        <br>
+        <span>{{nombreImagen}}</span>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="guardar()" [disabled]="productoFormGroup.invalid">
+    <mat-icon class="mat-18">save</mat-icon>Guardar
+  </button>
+  <button mat-button color="primary" (click)="cerrarModal()">
+    <mat-icon class="mat-18">cancel</mat-icon>Cerrar
+  </button>
+</mat-dialog-actions>

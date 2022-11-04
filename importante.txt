@@ -3,7 +3,11 @@ ng g c modules/dashboard/pages/dashboard --flat --skipTests
 
 - crear modulo
  ng g m modules/shared
+- crea solamente la carpeta y el archivo modules sin los demas archivos
+ ng g m modules/producto/producto --flat
 
+- crear servicio
+ng g s modules/shared/services/producto --skipTests
 - instalar flex-layout angular 13
 
 npm i @angular/flex-layout@13.0.0-beta.38
