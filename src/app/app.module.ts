@@ -11,7 +11,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'http://localhost:8082/',
+        url: 'http://localhost:8084/',
         realm: 'sistema inventory',
         clientId: 'angular-inventory'
       },
