@@ -40,4 +40,11 @@ export class CategoryService {
     const servicio=`${base_url}/categoria/${id}`;
     return this.http.get(servicio);
   }
+
+  descargarExcel(){
+    const service=`${base_url}/categoria/export/documento-excel`
+    return this.http.get(service,{
+      responseType: 'blob'
+    });
+  }
 }
