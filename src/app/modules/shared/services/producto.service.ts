@@ -21,6 +21,12 @@ export class ProductoService {
     const servicio=`${base_url}/producto?nombre=${producto}`;
     return this.http.get(servicio);
   }
+
+  descargarExcel(){
+    const servicio=`${base_url}/producto/export/documento-excel`;
+    return this.http.get(servicio,{responseType:'blob'});
+  }
+
   createProducto(producto:any){
     const servicio=`${base_url}/producto`
     return this.http.post(servicio,producto);

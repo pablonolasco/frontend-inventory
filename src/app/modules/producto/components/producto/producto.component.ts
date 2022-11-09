@@ -142,7 +142,19 @@ export class ProductoComponent implements OnInit {
         }));
       }
   }
-
+  descargarExcelProducto(){
+    this.productoService.descargarExcel().subscribe((data:any)=>{
+          let file= new Blob([data],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          let fileUrl= URL.createObjectURL(file);
+          let anchor=document.createElement('a');
+          anchor.download='productos.xlsx';
+          anchor.href=fileUrl;
+          anchor.click();
+          this.abrirSnackBar('Archivo descargado','Exito');
+    },error=>{
+      this.abrirSnackBar("Error al descargar el archivo","Error")
+    })
+  }
   //#endregion
 
 }
